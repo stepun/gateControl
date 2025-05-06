@@ -112,48 +112,39 @@ class _GateControlScreenState extends State<GateControlScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              width: 200,
-              height: 200,
-              decoration: BoxDecoration(
-                color: _isOpen ? Colors.green : Colors.red,
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: (_isOpen ? Colors.green : Colors.red).withOpacity(0.3),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Icon(
-                _isOpen ? Icons.lock_open : Icons.lock,
-                size: 100,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: _isLoading ? null : _controlGate,
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                  vertical: 20,
+            GestureDetector(
+              onTap: _isLoading ? null : _controlGate,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                width: 200,
+                height: 200,
+                decoration: BoxDecoration(
+                  color: _isOpen ? Colors.green : Colors.red,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: (_isOpen ? Colors.green : Colors.red).withOpacity(0.3),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                 ),
-                textStyle: const TextStyle(fontSize: 20),
-              ),
-              child: _isLoading
-                  ? const SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: CircularProgressIndicator(
+                child: _isLoading
+                    ? const SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : Icon(
+                        _isOpen ? Icons.lock_open : Icons.lock,
+                        size: 100,
                         color: Colors.white,
-                        strokeWidth: 2,
                       ),
-                    )
-                  : const Text('Открыть калитку'),
+              ),
             ),
           ],
         ),
